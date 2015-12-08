@@ -1,0 +1,12 @@
+# Blender MTL File: 'dodecahedron.blend'
+# Material Count: 1
+
+newmtl BaseColor
+Ns 47.058824
+Ka 0.000000 0.000000 0.000000
+Kd 0.071455 0.050695 0.640000
+Ks 0.750000 0.002317 0.003133
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd dodecahedron.png
