@@ -173,6 +173,9 @@ void Model::draw(mat4& projection, mat4& modelview) {
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projection));
 	glUniformMatrix4fv(modelviewLocation, 1, GL_FALSE, value_ptr(modelview));
 
+	GLint diffuseLocation = glGetUniformLocation(shader.getProgramID(), "diffuse");
+	glUniform3fv(diffuseLocation, 1, value_ptr(materials[0].getDiffuse()));
+
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size()); //12 faces, 3 triangles, 3 coords
 	
 	glDisableVertexAttribArray(3);
