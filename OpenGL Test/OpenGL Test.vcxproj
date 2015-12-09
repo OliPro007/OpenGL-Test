@@ -93,6 +93,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
@@ -103,6 +104,13 @@
     <None Include="model.vert" />
     <None Include="triangle.frag" />
     <None Include="triangle.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.bmp" />
+    <Image Include="icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenGL Test.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

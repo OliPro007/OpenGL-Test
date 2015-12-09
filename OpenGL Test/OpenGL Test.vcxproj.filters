@@ -50,6 +50,9 @@
     <ClInclude Include="Model.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="triangle.frag">
@@ -70,5 +73,18 @@
     <None Include="model.vert">
       <Filter>Fichiers de ressources</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.bmp">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenGL Test.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
