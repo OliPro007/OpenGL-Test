@@ -6,8 +6,6 @@ in vec3 in_Normal;
 uniform mat4 projection;
 uniform mat4 modelview;
 
-out vec3 color;
-
 void main(){
 	gl_Position = projection * modelview * vec4(in_Vertex, 1.0);
 }

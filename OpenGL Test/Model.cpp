@@ -158,6 +158,23 @@ void Model::loadVBO() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void Model::updateVBO(void* data, int size, int offset) {
+	glBindBuffer(GL_ARRAY_BUFFER, vboID);
+
+	void* vboAddress = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+	if(vboAddress == nullptr) {
+		std::cerr << "Error getting vbo address" << std::endl;
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		return;
+	}
+
+	memcpy((char*)vboAddress + offset, data, size);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+	vboAddress = nullptr;
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void Model::draw(mat4& projection, mat4& modelview) {
 	glUseProgram(shader.getProgramID());
 
@@ -173,8 +190,12 @@ void Model::draw(mat4& projection, mat4& modelview) {
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projection));
 	glUniformMatrix4fv(modelviewLocation, 1, GL_FALSE, value_ptr(modelview));
 
+	GLint ambiantLocation = glGetUniformLocation(shader.getProgramID(), "ambiant");
 	GLint diffuseLocation = glGetUniformLocation(shader.getProgramID(), "diffuse");
+	GLint specularLocation = glGetUniformLocation(shader.getProgramID(), "specular");
+	glUniform3fv(ambiantLocation, 1, value_ptr(materials[0].getAmbiant()));
 	glUniform3fv(diffuseLocation, 1, value_ptr(materials[0].getDiffuse()));
+	glUniform3fv(specularLocation, 1, value_ptr(materials[0].getSpecular()));
 
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size()); //12 faces, 3 triangles, 3 coords
 	

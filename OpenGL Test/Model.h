@@ -50,6 +50,7 @@ public:
 	~Model();
 
 	void draw(mat4& projection, mat4& modelview);
+	void updateVBO(void* data, int size, int offset);
 
 private:
 	void readMTL(const std::string path);
