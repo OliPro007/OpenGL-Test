@@ -20,9 +20,12 @@ bool Scene::initWindow() {
 	}
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	
 	window = SDL_CreateWindow("OpenGL Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	if(window == nullptr) {
 		std::cerr << "Error creating window: " << SDL_GetError() << std::endl;
@@ -43,6 +46,7 @@ bool Scene::initGL() {
 	}
 
 #ifdef WIN32
+	glewExperimental = true;
 	GLenum initGLEW(glewInit());
 	if(initGLEW != GLEW_OK) {
 		std::cerr << "Error initializing GLEW: " << glewGetErrorString(initGLEW) << std::endl;
