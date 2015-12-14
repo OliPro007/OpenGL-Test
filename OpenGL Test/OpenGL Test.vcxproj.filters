@@ -33,6 +33,9 @@
     <ClCompile Include="Model.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -51,6 +54,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -78,7 +84,7 @@
     <Image Include="icon.bmp">
       <Filter>Fichiers de ressources</Filter>
     </Image>
-    <Image Include="icon1.ico">
+    <Image Include="icon.ico">
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>

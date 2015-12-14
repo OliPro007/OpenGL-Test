@@ -33,6 +33,14 @@ bool Scene::initWindow() {
 		return false;
 	}
 
+	SDL_Surface* icon = SDL_LoadBMP("icon.bmp");
+	if(icon == nullptr) {
+		std::cerr << "Error loading icon" << std::endl;
+	} else {
+		SDL_SetWindowIcon(window, icon);
+		SDL_FreeSurface(icon);
+	}
+
 	return true;
 }
 

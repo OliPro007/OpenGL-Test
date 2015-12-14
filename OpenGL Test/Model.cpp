@@ -132,6 +132,8 @@ void Model::readMTL(const std::string path) {
 				vec3 kd;
 				stream >> kd.x >> kd.y >> kd.z;
 				material.kd = kd;
+			} else if(line.substr(0, 7) == "map_Kd ") {
+				material.texture = Texture(line.substr(7));
 			}
 		}
 	}
@@ -143,10 +145,13 @@ void Model::loadBuffers() {
 
 	glGenBuffers(1, &vboID);
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		size_t bufferSize = (vertices.size() * sizeof(vec3)) + (normals.size() * sizeof(vec3));
-		glBufferData(GL_ARRAY_BUFFER, bufferSize, 0, GL_STREAM_DRAW);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(vec3), &vertices[0]);
-		glBufferSubData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), normals.size() * sizeof(vec3), &normals[0]);
+		size_t verticesSize = vertices.size() * sizeof(vec3);
+		size_t texSize = uvs.size() * sizeof(vec2);
+		size_t normalsSize = normals.size() * sizeof(vec3);
+		glBufferData(GL_ARRAY_BUFFER, verticesSize + texSize + normalsSize, 0, GL_STREAM_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, verticesSize, &vertices[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, verticesSize, texSize, &uvs[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, verticesSize + texSize, normalsSize, &normals[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if(glIsVertexArray(vaoID) == GL_TRUE)
@@ -157,7 +162,9 @@ void Model::loadBuffers() {
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(vertices.size() * sizeof(vec3)));
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize));
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize + texSize));
 			glEnableVertexAttribArray(3);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -197,9 +204,11 @@ void Model::draw(mat4& projection, mat4& modelview) {
 		glUniform3fv(specularLocation, 1, value_ptr(material.ks));
 
 		GLint lightLocation = glGetUniformLocation(shader.getProgramID(), "light");
-		glUniform3f(lightLocation, 100.0, -200.0, -600.0);
+		glUniform3f(lightLocation, 0, 0, -100.0);
 
+		glBindTexture(GL_TEXTURE_2D, material.texture.getID());
 		glDrawArrays(GL_TRIANGLES, 0, vertices.size()); //12 faces, 3 triangles, 3 coords
+		glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);
 
 	glUseProgram(0);

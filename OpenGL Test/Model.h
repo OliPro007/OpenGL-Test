@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include "Shader.h"
+#include "Texture.h"
 
 using namespace glm;
 
@@ -19,6 +20,7 @@ struct Material {
 	float ni;
 	float d;
 	int illum;
+	Texture texture;
 };
 
 class Model {

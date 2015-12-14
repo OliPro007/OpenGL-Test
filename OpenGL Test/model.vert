@@ -1,6 +1,7 @@
 #version 330 core
 
 in vec3 in_Vertex;
+in vec2 in_TexCoord0;
 in vec3 in_Normal;
 
 uniform mat4 projection;
@@ -13,6 +14,7 @@ uniform vec3 light;
 
 varying vec4 colorDiffuse;
 varying vec4 colorSpecular;
+out vec2 texCoord;
 
 void main(){
 	gl_Position = projection * modelview * vec4(in_Vertex, 1.0);
@@ -25,4 +27,6 @@ void main(){
 	float fPower = 47.058824;
 	float fSpecular = min(pow(NdotH, fPower), 1.0);
 	colorSpecular = vec4(specular * fSpecular, 1.0);
+
+	texCoord = in_TexCoord0;
 }

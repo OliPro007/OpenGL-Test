@@ -30,11 +30,10 @@ public:
 
 	GLuint getProgramID() const { return programID; }
 
-	bool load();
-
 	Shader& operator=(const Shader& other);
 
 private:
+	bool load();
 	bool compileShader(GLuint& shader, GLenum type, const std::string& sourceFile);
 
 	GLuint vertexID;
