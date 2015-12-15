@@ -62,6 +62,21 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)SDL2-2.0.3\lib\x86\*.dll" "$(OutDir)" /Y
+xcopy "$(SolutionDir)SDL2_image-2.0.0\lib\x86\*.dll" "$(OutDir)" /Y
+xcopy "$(SolutionDir)glew-1.13.0\bin\Release\Win32\*" "$(OutDir)" /Y
+xcopy "$(ProjectDir)*.bmp" "$(OutDir)" /Y
+xcopy "$(ProjectDir)*.png" "$(OutDir)" /Y
+xcopy "$(ProjectDir)*.obj" "$(OutDir)" /Y
+xcopy "$(ProjectDir)*.mtl" "$(OutDir)" /Y
+xcopy "$(ProjectDir)*.vert" "$(OutDir)" /Y
+xcopy "$(ProjectDir)*.frag" "$(OutDir)" /Y
+
+
+
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
