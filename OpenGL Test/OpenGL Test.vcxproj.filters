@@ -73,10 +73,10 @@
     <None Include="cube.vert">
       <Filter>Fichiers de ressources</Filter>
     </None>
-    <None Include="model.frag">
+    <None Include="dodecahedron.frag">
       <Filter>Fichiers de ressources</Filter>
     </None>
-    <None Include="model.vert">
+    <None Include="dodecahedron.vert">
       <Filter>Fichiers de ressources</Filter>
     </None>
   </ItemGroup>

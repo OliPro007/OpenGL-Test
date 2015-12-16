@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-Shader::Shader(std::string vertexSource, std::string fragmentSource):
+Shader::Shader(std::string vertexSource, std::string fragmentSource) :
 vertexID(0), fragmentID(0), programID(0), vertexSource(vertexSource), fragmentSource(fragmentSource) {
 	load();
 }

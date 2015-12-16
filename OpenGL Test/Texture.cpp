@@ -1,22 +1,23 @@
 #include "Texture.h"
 
-Texture::Texture(std::string filename):
+Texture::Texture() :
+id(0), filename(""), loaded(false) {}
+
+Texture::Texture(std::string filename) :
 id(0), filename(filename) {
-	load();
+	loaded = load();
 }
 
 Texture::Texture(const Texture& other) {
-	this->id = other.id;
+	//this->id = other.id;
 	this->filename = other.filename;
-
-	load();
+	this->loaded = load();
 }
 
 Texture& Texture::operator=(const Texture& other) {
-	this->id = other.id;
+	//this->id = other.id;
 	this->filename = other.filename;
-
-	load();
+	this->loaded = load();
 
 	return *this;
 }
@@ -25,10 +26,22 @@ Texture::~Texture() {
 	glDeleteTextures(1, &id);
 }
 
+void Texture::setImage(const std::string& filename) {
+	this->filename = filename;
+	this->loaded = load();
+}
+
 bool Texture::load() {
+	int flags = IMG_INIT_JPG | IMG_INIT_PNG;
+	int inited = IMG_Init(flags);
+	if((inited & flags) != flags) {
+		std::cerr << "Error: " << IMG_GetError() << std::endl;
+		return false;
+	}
+
 	SDL_Surface* image = IMG_Load(filename.c_str());
 	if(image == nullptr) {
-		std::cerr << "Error: " << SDL_GetError() << std::endl;
+		std::cerr << "Error: " << IMG_GetError() << std::endl;
 		return false;
 	}
 
@@ -65,6 +78,7 @@ bool Texture::load() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	SDL_FreeSurface(reversedImage);
+	IMG_Quit();
 	return true;
 }
 

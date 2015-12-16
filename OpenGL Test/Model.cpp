@@ -1,7 +1,7 @@
 #include "Model.h"
 
-Model::Model(const std::string obj, const std::string mtl, const std::string vertexShader, const std::string fragmentShader):
-vertices(), faces(), normals(), uvs(), vboID(0), vaoID(0), shader(vertexShader, fragmentShader) {
+Model::Model(const std::string obj, const std::string mtl, const std::string vertexShader, const std::string fragmentShader) :
+vertices(), faces(), normals(), uvs(), vboID(0), vaoID(0), material(), shader(vertexShader, fragmentShader) {
 	std::ifstream file(obj);
 	if(!file.fail()) {
 		std::vector<unsigned> vertexIndices, normalIndices, uvIndices;
@@ -133,7 +133,7 @@ void Model::readMTL(const std::string path) {
 				stream >> kd.x >> kd.y >> kd.z;
 				material.kd = kd;
 			} else if(line.substr(0, 7) == "map_Kd ") {
-				material.texture = Texture(line.substr(7));
+				material.texture.setImage(line.substr(7));
 			}
 		}
 	}
@@ -143,15 +143,20 @@ void Model::loadBuffers() {
 	if(glIsBuffer(vboID) == GL_TRUE)
 		glDeleteBuffers(1, &vboID);
 
+	size_t verticesSize = vertices.size() * sizeof(vec3);
+	size_t texSize = uvs.size() * sizeof(vec2);
+	size_t normalsSize = normals.size() * sizeof(vec3);
+
 	glGenBuffers(1, &vboID);
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		size_t verticesSize = vertices.size() * sizeof(vec3);
-		size_t texSize = uvs.size() * sizeof(vec2);
-		size_t normalsSize = normals.size() * sizeof(vec3);
 		glBufferData(GL_ARRAY_BUFFER, verticesSize + texSize + normalsSize, 0, GL_STREAM_DRAW);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, verticesSize, &vertices[0]);
-		glBufferSubData(GL_ARRAY_BUFFER, verticesSize, texSize, &uvs[0]);
-		glBufferSubData(GL_ARRAY_BUFFER, verticesSize + texSize, normalsSize, &normals[0]);
+		if(material.texture.isLoaded()) { //Transfer both texture and normals
+			glBufferSubData(GL_ARRAY_BUFFER, verticesSize, texSize, &uvs[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, verticesSize + texSize, normalsSize, &normals[0]);
+		} else { //Transfer only normals
+			glBufferSubData(GL_ARRAY_BUFFER, verticesSize, normalsSize, &normals[0]);
+		}
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if(glIsVertexArray(vaoID) == GL_TRUE)
@@ -162,10 +167,15 @@ void Model::loadBuffers() {
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize));
-			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize + texSize));
-			glEnableVertexAttribArray(3);
+			if(material.texture.isLoaded()) { //Enable both texture and normals
+				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize));
+				glEnableVertexAttribArray(2);
+				glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize + texSize));
+				glEnableVertexAttribArray(3);
+			} else { //Enable only normals
+				glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(verticesSize));
+				glEnableVertexAttribArray(3);
+			}
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
@@ -206,9 +216,13 @@ void Model::draw(mat4& projection, mat4& modelview) {
 		GLint lightLocation = glGetUniformLocation(shader.getProgramID(), "light");
 		glUniform3f(lightLocation, 0, 0, -100.0);
 
-		glBindTexture(GL_TEXTURE_2D, material.texture.getID());
-		glDrawArrays(GL_TRIANGLES, 0, vertices.size()); //12 faces, 3 triangles, 3 coords
-		glBindTexture(GL_TEXTURE_2D, 0);
+		if(material.texture.isLoaded()) {
+			glBindTexture(GL_TEXTURE_2D, material.texture.getID());
+			glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+			glBindTexture(GL_TEXTURE_2D, 0);
+		} else {
+			glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+		}		
 	glBindVertexArray(0);
 
 	glUseProgram(0);

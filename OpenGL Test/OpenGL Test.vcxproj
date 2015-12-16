@@ -117,8 +117,8 @@ xcopy "$(ProjectDir)*.frag" "$(OutDir)" /Y
   <ItemGroup>
     <None Include="cube.frag" />
     <None Include="cube.vert" />
-    <None Include="model.frag" />
-    <None Include="model.vert" />
+    <None Include="dodecahedron.frag" />
+    <None Include="dodecahedron.vert" />
     <None Include="triangle.frag" />
     <None Include="triangle.vert" />
   </ItemGroup>

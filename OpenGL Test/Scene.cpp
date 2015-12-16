@@ -3,7 +3,7 @@
 
 using namespace glm;
 
-Scene::Scene(std::string title, int width, int height):
+Scene::Scene(std::string title, int width, int height) :
 title(title), width(width), height(height), eventManager() {}
 
 Scene::~Scene() {
@@ -81,7 +81,7 @@ void Scene::mainLoop() {
 	float angleX = 0.0;
 	float angleY = 0.0;
 
-	Model model("dodecahedron.obj", "dodecahedron.mtl", "model.vert", "model.frag");
+	Model model("dodecahedron.obj", "dodecahedron.mtl", "dodecahedron.vert", "dodecahedron.frag");
 
 	while(!eventManager.hasEnded()) {
 		Uint32 beginTick = SDL_GetTicks();
