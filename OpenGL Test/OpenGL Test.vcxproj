@@ -53,12 +53,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)glew-1.13.0\include;$(SolutionDir)glm\;$(SolutionDir)SDL2-2.0.3\include;$(SolutionDir)SDL2_image-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Windows\glew-1.13.0\include;$(SolutionDir)\glm\;$(SolutionDir)\Windows\SDL2-2.0.3\include;$(SolutionDir)\Windows\SDL2_image-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)glew-1.13.0\lib\Release\Win32;$(SolutionDir)SDL2_image-2.0.0\lib\x86;$(SolutionDir)SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Windows\glew-1.13.0\lib\Release\Win32;$(SolutionDir)\Windows\SDL2_image-2.0.0\lib\x86;$(SolutionDir)\Windows\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
@@ -71,11 +71,7 @@ xcopy "$(ProjectDir)*.png" "$(OutDir)" /Y
 xcopy "$(ProjectDir)*.obj" "$(OutDir)" /Y
 xcopy "$(ProjectDir)*.mtl" "$(OutDir)" /Y
 xcopy "$(ProjectDir)*.vert" "$(OutDir)" /Y
-xcopy "$(ProjectDir)*.frag" "$(OutDir)" /Y
-
-
-
-</Command>
+xcopy "$(ProjectDir)*.frag" "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

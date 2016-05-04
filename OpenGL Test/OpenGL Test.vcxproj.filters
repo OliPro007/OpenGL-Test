@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers de ressources\Shaders">
+      <UniqueIdentifier>{c536ee46-6c4e-4f81-ae6d-3c2a0cc32f1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,23 +64,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.frag">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
-    <None Include="triangle.vert">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
     <None Include="cube.frag">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="cube.vert">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="dodecahedron.frag">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="dodecahedron.vert">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="triangle.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="triangle.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
