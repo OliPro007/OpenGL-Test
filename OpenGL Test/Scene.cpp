@@ -33,7 +33,7 @@ bool Scene::initWindow() {
 		return false;
 	}
 
-	SDL_Surface* icon = SDL_LoadBMP("icon.bmp");
+	SDL_Surface* icon = SDL_LoadBMP(ICON);
 	if(icon == nullptr) {
 		std::cerr << "Error loading icon" << std::endl;
 	} else {
@@ -81,7 +81,7 @@ void Scene::mainLoop() {
 	float angleX = 0.0;
 	float angleY = 0.0;
 
-	Model model("dodecahedron.obj", "dodecahedron.mtl", "dodecahedron.vert", "dodecahedron.frag");
+	Model model(DODECAHEDRON_OBJ, DODECAHEDRON_MTL, DODECAHEDRON_VERT, DODECAHEDRON_FRAG);
 
 	while(!eventManager.hasEnded()) {
 		Uint32 beginTick = SDL_GetTicks();

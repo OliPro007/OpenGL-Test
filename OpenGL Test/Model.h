@@ -9,6 +9,12 @@
 #include "Shader.h"
 #include "Texture.h"
 
+#ifdef LINUXRELEASE //Define standard install location
+#define ROOT "/usr/share/opengl-test/"
+#else
+#define ROOT "./"
+#endif
+
 using namespace glm;
 
 struct Material {

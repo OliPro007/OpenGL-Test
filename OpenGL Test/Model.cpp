@@ -133,7 +133,7 @@ void Model::readMTL(const std::string path) {
 				stream >> kd.x >> kd.y >> kd.z;
 				material.kd = kd;
 			} else if(line.substr(0, 7) == "map_Kd ") {
-				material.texture.setImage(line.substr(7));
+				material.texture.setImage(std::string(ROOT) + line.substr(7));
 			}
 		}
 	}

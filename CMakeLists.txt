@@ -21,8 +21,16 @@ include_directories(${SDL2IMAGE_INCLUDE_DIRS})
 include_directories(${OPENGL_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${OPENGL_LIBRARIES})
 
-#Install the executable and the resources
+#Install the executable and the resources 
 file(GLOB RESOURCES RELATIVE "${CMAKE_SOURCE_DIR}" "OpenGL Test/*.vert" "OpenGL Test/*.frag" "OpenGL Test/*.obj" "OpenGL Test/*.mtl" "OpenGL Test/*.png" "OpenGL Test/*.bmp")
 
-install(TARGETS OpenGlTest DESTINATION /home/olivier/Documents/OpenGL-Test/bin)
-install(FILES ${RESOURCES} DESTINATION /home/olivier/Documents/OpenGL-Test/bin)
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message("Building for linux package...")
+    add_definitions(-DLINUXRELEASE)
+    install(TARGETS OpenGlTest DESTINATION /usr/bin)
+    install(FILES ${RESOURCES} DESTINATION /usr/share/opengl-test)
+else(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message("Building locally...")
+    install(TARGETS OpenGlTest DESTINATION /home/olivier/Documents/OpenGL-Test/bin)
+    install(FILES ${RESOURCES} DESTINATION /home/olivier/Documents/OpenGL-Test/bin)
+endif(CMAKE_BUILD_TYPE STREQUAL "Release")
