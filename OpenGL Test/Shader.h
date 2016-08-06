@@ -1,19 +1,10 @@
 #pragma once
 
-#ifdef WIN32
-#include <GL/glew.h>
-#elif __APPLE__
-#define GL_GLEXT_PROTOTYPES 1
-#include <OpenGL/gl3.h>
-#else
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
-#include <GL/glext.h>
-#endif
-
 #include <fstream>
 #include <iostream>
 #include <string>
+
+#include <GL/glew.h>
 
 #include <glm.hpp>
 #include <gtx/transform.hpp>

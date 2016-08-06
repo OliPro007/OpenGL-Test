@@ -53,7 +53,6 @@ bool Scene::initGL() {
 		return false;
 	}
 
-#ifdef WIN32
 	glewExperimental = true;
 	GLenum initGLEW(glewInit());
 	if(initGLEW != GLEW_OK) {
@@ -63,7 +62,6 @@ bool Scene::initGL() {
 		SDL_Quit();
 		return false;
 	}
-#endif
 
 	glEnable(GL_DEPTH_TEST);
 
