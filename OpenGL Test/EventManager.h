@@ -22,11 +22,12 @@ public:
 
 private:
 	SDL_Event events;
+    
+	int x, y, xRel, yRel;
+	bool ended;
+    
 	bool keys[SDL_NUM_SCANCODES];
 	bool mouseButtons[8];
-
-	bool ended;
-	int x, y, xRel, yRel;
 
 };
 

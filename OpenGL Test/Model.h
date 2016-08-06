@@ -45,10 +45,11 @@ private:
 	std::vector<vec3> faces;
 	std::vector<vec3> normals;
 	std::vector<vec2> uvs;
-	Material material;
-
-	Shader shader;
+    
 	GLuint vboID;
 	GLuint vaoID;
+	Shader shader;
+    
+	Material material;
 
 };

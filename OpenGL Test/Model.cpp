@@ -1,7 +1,7 @@
 #include "Model.h"
 
 Model::Model(const std::string obj, const std::string mtl, const std::string vertexShader, const std::string fragmentShader) :
-vertices(), faces(), normals(), uvs(), vboID(0), vaoID(0), material(), shader(vertexShader, fragmentShader) {
+vertices(), faces(), normals(), uvs(), vboID(0), vaoID(0), shader(vertexShader, fragmentShader), material() {
 	std::ifstream file(obj);
 	if(!file.fail()) {
 		std::vector<unsigned> vertexIndices, normalIndices, uvIndices;
@@ -10,7 +10,7 @@ vertices(), faces(), normals(), uvs(), vboID(0), vaoID(0), material(), shader(ve
 		std::vector<vec2> tmpUvs;
 
 		std::string line;
-		Material* currentMaterial = nullptr;
+		//Material* currentMaterial = nullptr;
 		while(std::getline(file, line)) {
 			if(line.substr(0, 2) == "v ") {
 				std::istringstream stream(line.substr(2));
